@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ file_name }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            color: #dbdbdb;
+            font-family: 'Lexend Deca', sans-serif;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 2%;
+        }
+
+
+        .bottomRight {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding-right: 7%;
+            padding-bottom: 5%;
+        }
+    </style>
+
+
+</head>
+
+
+<body>
+    <h2>EDFS File Explorer</h2>
+    <div style="border:1px solid #f7f0b5d8; padding-left: 1%;">Path: {{ path }}</div>
+    <br><br>
+    <h2> {{ file_name }}</h2>
+    <p style="font-family: 'Courier New', Courier, monospace;"> {{ content | safe}} </p>
+
+
+    <div class="bottomRight">
+
+        <form method="POST" action="/blocks">
+            <input type="hidden" name="parent" value="{{ path.replace('/','-') }}">
+            <input type="hidden" name="file_name" value="{{ file_name }}">
+            <button type="submit"
+                style="all: unset; cursor: pointer; color: #1a1a1a; background-color: #f7f0b5d8; padding: 15%; border-radius: 4px">View
+                Blocks</button>
+        </form>
+        <br>
+
+
+        <form method="POST" action="/download">
+            <input type="hidden" name="parent" value="{{ path.replace('/','-') }}">
+            <input type="hidden" name="file_name" value="{{ file_name }}">
+            <button type="submit" onclick="download()"
+                style="all: unset; cursor: pointer; color: #1a1a1a; background-color: #f7f0b5d8; padding: 15%; border-radius: 4px">Download</button>
+        </form>
+
+    </div>
+
+    <!-- <div class="bottomRight">
+        <button onclick="openModal()"
+            style="all: unset; cursor: pointer; color: #1a1a1a; background-color: #f7f0b5d8; padding: 15%; border-radius: 4px">Download</button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Choose a directory to save the file</h2>
+            <div class="form-container">
+                <form method="POST" action="/download">
+                    <input type="hidden" name="parent" value="{{ path.replace('/','-') }}">
+            <input type="hidden" name="file_name" value="{{ file_name }}">
+            <input type="file" id="dir" name="dir" accept="directory" style="all: unset; cursor: pointer; color: #1a1a1a;" webkitdirectory directory required>
+                    <br><br>
+                    <button type="submit" 
+                        style="all: unset; cursor: pointer; color: #e1e1e1; background-color: #1a1a1a; padding: 2%; border-radius: 4px">Select</button>
+                </form>
+            </div>
+        </div>
+    </div> -->
+
+
+
+</body>
+<script>
+    function download() {
+
+        alert("file downloaded successfully to " + "{{dic}}");
+    }
+
+</script>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{{ file_name }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            color: #dbdbdb;
+            font-family: 'Lexend Deca', sans-serif;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 2%;
+        }
+
+        .bottomRight {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding-right: 7%;
+            padding-bottom: 5%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <h2>EDFS File Explorer</h2>
+    <div style="border:1px solid #f7f0b5d8; padding-left: 1%;">Path: {{ path }}</div>
+    <br><br>
+    <h2> {{ file_name }} : Blocks</h2>
+    <p style="font-family: 'Courier New', Courier, monospace;"> {{ content | safe}} </p>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>EDFS Root</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
+
+        body {
+            background-color: #1a1a1a;
+            color: #dbdbdb;
+            font-family: 'Lexend Deca', sans-serif;
+            padding-left: 5%;
+            padding-right: 5%;
+            padding-top: 2%;
+        }
+
+        .item {
+            text-align: center;
+            display: inline-block;
+            margin-right: 3%;
+        }
+
+        .bottomRight {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding-right: 7%;
+            padding-bottom: 5%;
+        }
+
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-content {
+            background-color: #e1e1e1;
+            color: #999898;
+            margin: 15% auto;
+            padding: 2%;
+            max-width: 400px;
+            border-radius: 20px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-container input {
+            margin-bottom: 10px;
+        }
+
+        .form-container button {
+            margin-top: 10px;
+        }
+    </style>
+
+    <script>
+        function showFileUpload() {
+            document.getElementById("FileUpload").style.display = "block";
+        }
+
+        // Open the modal form
+        function openModal() {
+            document.getElementById('myModal').style.display = 'block';
+        }
+
+        // Close the modal form
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+    </script>
+
+</head>
+
+<body>
+    <h2>EDFS File Explorer</h2>
+    <div style="border:1px solid #f7f0b5d8; padding-left: 1%;">Path: {{ directory }}</div>
+    <br><br><br><br>
+
+    {% for folder_name in folders %}
+    <div class="item">
+        <form method="POST" , action="/folder/{{'root'}}/{{ folder_name }}">
+
+            <button type="submit" style="all: unset;cursor: pointer;">
+                <img style="max-width: 50px; height: auto;" src="{{ url_for('static', filename='folder.png') }}"
+                    alt="Folder Picture"><br>{{ folder_name }}
+            </button>
+
+        </form>
+    </div>
+    {% endfor %}
+
+    <br><br><br><br>
+
+
+    {% for file_name in files %}
+    <div class="item">
+        <form method="POST" , action="/file/{{'root'}}/{{ file_name }}">
+
+            <button type="submit" style="all: unset;cursor: pointer;">
+                <img style="max-width: auto; height: 50px;" src="{{ url_for('static', filename='file.png') }}"
+                    alt="File Picture"><br>{{ file_name }}
+            </button>
+
+        </form>
+    </div>
+    {% endfor %}
+
+    <div class="bottomRight">
+        <button onclick="openModal()"
+            style="all: unset; cursor: pointer; color: #1a1a1a; background-color: #f7f0b5d8; padding: 15%; border-radius: 4px">Upload</button>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Upload File</h2>
+            <div class="form-container">
+                <form method="POST" action="/upload" enctype="multipart/form-data">
+
+                    <input type="hidden" name="path" value="{{ 'root' }}">
+                    <input type="file" name="file[]" multiple="true" id="file"
+                        style="all: unset; cursor: pointer; color: #1a1a1a;" required>
+                    <br><br>
+                    <input type="submit" value="Upload"
+                        style="all: unset; cursor: pointer; color: #e1e1e1; background-color: #1a1a1a; padding: 2%; border-radius: 4px">
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script>
+
+    function upload() {
+        alert("file uploaded successfully");
+    }
+</script>
+
+</html>
